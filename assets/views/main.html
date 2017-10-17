@@ -1,0 +1,202 @@
+<html>
+    <head>
+        <title>Git client</title>
+        <link rel="stylesheet" href="../css/photon.min.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <script src="../js/menu.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="window">
+            <header class="toolbar toolbar-header">
+                <div class="toolbar-actions">
+                    <h1 class="title">
+                        Git client
+                        <div id="win-frame-menu" class="btn-group pull-right">
+                            <span id="btn-min" class="icon icon-down-open"></span>
+                            <span id="btn-max" class="icon icon-resize-small"></span>   
+                            <span id="btn-close" class="icon icon-cancel"></span> 
+                        </div>
+                    </h1>
+                    <div class="btn-group">
+                        <button class="btn btn-default">
+                            <span id="btn-open" class="icon icon-drive"></span>
+                        </button>
+                        <button class="btn btn-default">
+                            <span class="icon icon-left-open"></span>
+                        </button>
+                        <button class="btn btn-default">
+                            <span class="icon icon-right-open"></span>
+                        </button>
+                        <button class="btn btn-default">
+                            <span class="icon icon-home"></span>
+                        </button>
+                        <button class="btn btn-default">
+                            <span class="icon icon-search"></span>
+                        </button>
+                        <button class="btn btn-default active">
+                            <span class="icon icon-cloud"></span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="window-content">
+            <div class="pane-group">
+                <div class="pane pane-sm sidebar">
+                <nav class="nav-group">
+                    <h5 class="nav-group-title">Repositories</h5>
+                    <span class="nav-group-item">
+                    <!--<span class="icon icon-folder"></span>-->
+                    Open existing repository
+                    </span>
+                </nav>
+                </div>
+
+                <div class="pane">
+                    <p style="margin: 15px">Nothing to show here</p>
+                <!--<table class="table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Kind</th>
+                        <th>Date Modified</th>
+                        <th>Author</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>bars.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>base.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>button-groups.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>buttons.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>docs.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>forms.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>grid.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>icons.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>images.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>lists.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>mixins.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>navs.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>normalize.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>photon.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>tables.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>tabs.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>utilities.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    <tr>
+                        <td>variables.scss</td>
+                        <td>Document</td>
+                        <td>Oct 13, 2015</td>
+                        <td>connors</td>
+                    </tr>
+                    </tbody>
+                </table>-->
+                </div>
+            </div>
+            </div>
+        </div>
+        <script>
+            const electron = require('electron');
+            const {ipcRenderer, BrowserWindow} = electron;
+
+            document.querySelector('#btn-min').addEventListener('click', function() {
+                ipcRenderer.send('win:minimize');
+            });
+
+            document.querySelector('#btn-max').addEventListener('click', function() {
+                ipcRenderer.send('win:maximize');
+            });
+
+            document.querySelector('#btn-close').addEventListener('click', function() {
+                ipcRenderer.send('win:close');
+            });
+
+            ipcRenderer.on('repo:open', function(e, item) {
+                console.log('File open');
+            });
+        </script>
+    </body>
+</html>
