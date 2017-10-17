@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="pane">
-                    <p style="margin: 15px">Nothing to show here</p>
+                    <p id="msg-commit" style="margin: 15px">Nothing to show here</p>
                 <!--<table class="table-striped">
                     <thead>
                     <tr>
@@ -194,8 +194,12 @@
                 ipcRenderer.send('win:close');
             });
 
-            ipcRenderer.on('repo:open', function(e, item) {
-                console.log('File open');
+            document.querySelector('#btn-open').addEventListener('click', function (e) { 
+                ipcRenderer.send('repo:open');
+            });
+
+            ipcRenderer.on('repo:selected', function(e, message) {
+                document.querySelector('#msg-commit').innerHTML = message;
             });
         </script>
     </body>
