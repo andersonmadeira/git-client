@@ -6,6 +6,7 @@ const Git = require('nodegit');
 const {app, BrowserWindow, Menu, ipcMain, dialog} = electron;
 
 let winMain;
+let repository = null;
 
 var getMostRecentCommit = function(repository) {
     return repository.getBranchCommit("master");
@@ -18,7 +19,9 @@ var getCommitMessage = function(commit) {
 app.on('ready', function(){
     winMain = new BrowserWindow({
         frame: false,
-        titleBarStyle: 'hidden'
+        titleBarStyle: 'hidden',
+        minHeight: 400,
+        minWidth: 700
     });
     
     winMain.loadURL(url.format({
@@ -83,11 +86,13 @@ ipcMain.on('repo:open', function(e) {
         properties: ['openDirectory']
     },
     function (filePath) {
-        Git.Repository.open(filePath[0])
-        .then(getMostRecentCommit)
-        .then(getCommitMessage)
-        .then(function(message) {
-            winMain.webContents.send('repo:selected', message);
-        });
+        if ( filePath ) {
+            Git.Repository.open(filePath[0])
+            .then(getMostRecentCommit)
+            .then(getCommitMessage)
+            .then(function(message) {
+                winMain.webContents.send('repo:selected', message);
+            });
+        }
     });
 });
