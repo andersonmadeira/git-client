@@ -4,8 +4,7 @@
   "description": "Easiest Git Client Ever",
   "main": "main.js",
   "dependencies": {
-    "electron": "^1.7.9",
-    "nodegit": "^0.20.2"
+    "electron": "^1.7.9"
   },
   "devDependencies": {
     "electron-packager": "^9.1.0"

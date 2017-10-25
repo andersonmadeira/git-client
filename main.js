@@ -1,7 +1,6 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
-const Git = require('nodegit');
 
 const {app, BrowserWindow, Menu, ipcMain, dialog} = electron;
 
@@ -87,12 +86,7 @@ ipcMain.on('repo:open', function(e) {
     },
     function (filePath) {
         if ( filePath ) {
-            Git.Repository.open(filePath[0])
-            .then(getMostRecentCommit)
-            .then(getCommitMessage)
-            .then(function(message) {
-                winMain.webContents.send('repo:selected', message);
-            });
+            winMain.webContents.send('repo:selected', "last commit");
         }
     });
 });
