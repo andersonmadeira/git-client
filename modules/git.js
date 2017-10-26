@@ -84,9 +84,24 @@ function log() {
   });
 }
 
+function status() {
+  return new Promise(function (resolve, reject) {
+    if (!activeRepoDir)
+      return reject(false);
+    exec_git('status --short', function(out, err) {
+      if (err)
+        return reject(err);
+      else {
+        return resolve(out.split('\n'));
+      }
+    })
+  });
+}
+
 module.exports.repo = {
   getUser: getUser,
   open: open,
   init: init,
+  status: status,
   log: log
 };

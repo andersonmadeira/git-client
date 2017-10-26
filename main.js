@@ -2,6 +2,7 @@ const electron = require('electron');
 const url = require('url');
 const path = require('path');
 const git = require('./modules/git');
+const cronJob = require("cron").CronJob;
 
 const {app, BrowserWindow, Menu, ipcMain, dialog} = electron;
 
@@ -15,6 +16,11 @@ var getMostRecentCommit = function(repository) {
 var getCommitMessage = function(commit) {
     return commit.message();
 };
+
+// Run this cron job every 5 minutes
+new cronJob("*/1 * * * *", function() {
+    git.repo.status().then(console.log, console.err);
+}, null, true);
 
 app.on('ready', function(){
     winMain = new BrowserWindow({
