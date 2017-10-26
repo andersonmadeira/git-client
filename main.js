@@ -1,6 +1,7 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
+const git = require('./modules/git');
 
 const {app, BrowserWindow, Menu, ipcMain, dialog} = electron;
 
@@ -80,13 +81,39 @@ ipcMain.on('win:close', function(e) {
     app.quit();
 });
 
+ipcMain.on('repo:log', function(e) {
+    git.repo.log().then(function(lines) {
+        console.log(lines);
+    }, console.err);
+});
+
 ipcMain.on('repo:open', function(e) {
     dialog.showOpenDialog({
         properties: ['openDirectory']
     },
     function (filePath) {
         if ( filePath ) {
-            winMain.webContents.send('repo:selected', "last commit");
+            git.repo.open(filePath[0]).then(function(isRepo) {
+                git.repo.log().then(function(lines) {
+                    winMain.webContents.send('repo:selected', lines);
+                }, console.err);
+            }, function(err) {
+                dialog.showMessageBox(winMain, {
+                    type: 'question',
+                    buttons: [ 'yes', 'no'],
+                    title: 'Warning!',
+                    message: 'There is not repository here, do you wanna init a new one?'
+                }, function(response) {
+                    // Confirmed to init repo
+                    if (response == 0)
+                        git.repo.init(filePath[0]).then(function(response) {
+                            winMain.webContents.send('repo:selected', response);
+                        }, 
+                        function(err) {
+                            dialog.showMessageBox(winMain, { type: 'error', message: err});
+                        });
+                });
+            });
         }
     });
 });

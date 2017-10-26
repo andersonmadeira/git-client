@@ -18,8 +18,8 @@
                         </div>
                     </h1>
                     <div class="btn-group">
-                        <button title="Open Repository" class="btn btn-default">
-                            <span id="btn-open" class="icon icon-drive"></span>
+                        <button id="btn-open" title="Open Repository" class="btn btn-default">
+                            <span class="icon icon-drive"></span>
                         </button>
                         <button class="btn btn-default">
                             <span class="icon icon-left-open"></span>
@@ -44,17 +44,21 @@
             <div class="pane-group">
                 <div class="pane pane-sm sidebar">
                 <nav class="nav-group">
-                    <h5 class="nav-group-title">Repositories</h5>
-                    <span class="nav-group-item">
-                    <!--<span class="icon icon-folder"></span>-->
-                    Open existing repository
-                    </span>
+                    <h5 class="nav-group-title">Branches</h5>
+                    <span class="nav-group-item"> master </span>
+                    <span class="nav-group-item"> develop </span>
+                    <span class="nav-group-item"> feature </span>
+                </nav>
+                <nav class="nav-group">
+                    <h5 class="nav-group-title">Remotes</h5>
+                    <span class="nav-group-item"> origin </span>
+                    <span class="nav-group-item"> remote </span>
                 </nav>
                 </div>
 
                 <div class="pane">
                     <p id="msg-commit" style="margin: 15px">Nothing to show here</p>
-                <!--<table class="table-striped">
+                <table id="table-commits" class="table-striped">
                     <thead>
                     <tr>
                         <th>Name</th>
@@ -174,6 +178,14 @@
                     </tr>
                     </tbody>
                 </table>-->
+                </div>
+
+                <div class="pane pane-sm sidebar">
+                <nav class="nav-group">
+                    <h5 class="nav-group-title">Changes</h5>
+                    <span class="nav-group-item"> main.c </span>
+                    <span class="nav-group-item"> file1.c </span>
+                </nav>
                 </div>
             </div>
             </div>
