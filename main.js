@@ -95,7 +95,7 @@ ipcMain.on('repo:open', function(e) {
         if ( filePath ) {
             git.repo.open(filePath[0]).then(function(isRepo) {
                 git.repo.log().then(function(lines) {
-                    winMain.webContents.send('repo:selected', lines);
+                    winMain.webContents.send('repo:log', lines);
                 }, console.err);
             }, function(err) {
                 dialog.showMessageBox(winMain, {
@@ -106,8 +106,8 @@ ipcMain.on('repo:open', function(e) {
                 }, function(response) {
                     // Confirmed to init repo
                     if (response == 0)
-                        git.repo.init(filePath[0]).then(function(response) {
-                            winMain.webContents.send('repo:selected', response);
+                        git.repo.init(filePath[0]).then(function(commits) {
+                            winMain.webContents.send('repo:log', commits);
                         }, 
                         function(err) {
                             dialog.showMessageBox(winMain, { type: 'error', message: err});

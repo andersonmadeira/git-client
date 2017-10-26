@@ -2,6 +2,7 @@ const exec = require('child_process').exec;
 const path = require('path');
 const fs = require('fs');
 const which = require('which');
+const process = require('process');
 
 // private
 
@@ -18,7 +19,7 @@ function execute(command, callback) {
 };
 
 function exec_git(command, callback) {
-  execute(gitPath + ' ' + command, callback);
+  execute('git ' + command, callback);
 }
 
 // public
@@ -51,6 +52,7 @@ function open(directoryPath) {
       // Is dir
       else {
         activeRepoDir = directoryPath;
+        process.chdir(activeRepoDir);
         return resolve(true);
       }
     });
