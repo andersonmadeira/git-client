@@ -49,7 +49,7 @@
                     <span class="nav-group-item"> develop </span>
                     <span class="nav-group-item"> feature </span>
                 </nav>
-                <nav class="nav-group">
+                <nav id="navRemotes" class="nav-group">
                     <h5 class="nav-group-title">Remotes</h5>
                     <span class="nav-group-item"> origin </span>
                     <span class="nav-group-item"> remote </span>
@@ -146,6 +146,25 @@
                     span.innerHTML = opChar + ' ' + lin.slice(splitIndex+1);
 
                     navChanges.appendChild(span);
+                }
+            });
+
+            ipcRenderer.on('repo:remotes', function(e, lines) {
+                var navRemotes = document.querySelector('#navRemotes');
+                navRemotes.innerHTML = '<h5 class="nav-group-title">Remotes</h5>';
+
+                for (i = 0; i < lines.length; i++) {
+                    var lin = lines[i].trim();
+
+                    if ( lin == "" )
+                        continue;
+
+                    var span = document.createElement('span');
+                    span.classList.add('nav-group-item');
+
+                    span.innerHTML = lin;
+
+                    navRemotes.appendChild(span);
                 }
             });
         </script>

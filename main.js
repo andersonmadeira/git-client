@@ -108,6 +108,9 @@ ipcMain.on('repo:open', function(e) {
                 git.repo.status().then(function(lines) {
                     winMain.webContents.send('repo:status', lines);
                 }, console.err);
+                git.repo.get_remotes().then(function(lines) {
+                    winMain.webContents.send('repo:remotes', lines);
+                }, console.err);
             }, function(err) {
                 dialog.showMessageBox(winMain, {
                     type: 'question',
