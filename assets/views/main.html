@@ -70,10 +70,9 @@
                 </div>
 
                 <div class="pane pane-sm sidebar">
-                <nav class="nav-group">
+                <nav id="navChanges" class="nav-group">
                     <h5 class="nav-group-title">Changes</h5>
-                    <span class="nav-group-item"> main.c </span>
-                    <span class="nav-group-item"> file1.c </span>
+                    <span class="nav-group-item"> -- </span>
                 </nav>
                 </div>
             </div>
@@ -117,6 +116,36 @@
                     tr.appendChild(tdCommit);
                     tr.appendChild(tdMessage);
                     lines.appendChild(tr);
+                }
+            });
+
+            ipcRenderer.on('repo:status', function(e, lines) {
+                var navChanges = document.querySelector('#navChanges');
+                navChanges.innerHTML = '<h5 class="nav-group-title">Changes</h5>';
+                
+
+                for (i = 0; i < lines.length; i++) {
+                    var lin = lines[i].trim();
+                    var splitIndex = lin.indexOf(' ');
+                    var opChar;
+
+                    if ( splitIndex == -1 )
+                        continue;
+
+                    var span = document.createElement('span');
+                    span.classList.add('nav-group-item');
+
+
+                    switch ( opChar = lin.slice(0, splitIndex) ) {
+                        case 'M': opChar = '<span class="icon icon-record" style="color:#34c84a"></span>'; break;
+                        case '??': opChar = '<span class="icon icon-record" style="color:#57acf5"></span>'; break;
+                        case 'D': opChar = '<span class="icon icon-record" style="color:#fc605b"></span>'; break;
+                        default: opChar = '?';
+                    }
+
+                    span.innerHTML = opChar + ' ' + lin.slice(splitIndex+1);
+
+                    navChanges.appendChild(span);
                 }
             });
         </script>

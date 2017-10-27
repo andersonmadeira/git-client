@@ -19,7 +19,9 @@ var getCommitMessage = function(commit) {
 
 // Run this cron job every 5 minutes
 new cronJob("*/1 * * * *", function() {
-    git.repo.status().then(console.log, console.err);
+    git.repo.status().then(function(lines) {
+        winMain.webContents.send('repo:status', lines);
+    }, console.err);
 }, null, true);
 
 app.on('ready', function(){
@@ -103,6 +105,9 @@ ipcMain.on('repo:open', function(e) {
                 git.repo.log().then(function(lines) {
                     winMain.webContents.send('repo:log', lines);
                 }, console.err);
+                git.repo.status().then(function(lines) {
+                    winMain.webContents.send('repo:status', lines);
+                }, console.err);
             }, function(err) {
                 dialog.showMessageBox(winMain, {
                     type: 'question',
@@ -112,8 +117,8 @@ ipcMain.on('repo:open', function(e) {
                 }, function(response) {
                     // Confirmed to init repo
                     if (response == 0)
-                        git.repo.init(filePath[0]).then(function(commits) {
-                            winMain.webContents.send('repo:log', commits);
+                        git.repo.init(filePath[0]).then(function(output) {
+                            dialog.showMessageBox(winMain, { type: 'info', message: output});
                         }, 
                         function(err) {
                             dialog.showMessageBox(winMain, { type: 'error', message: err});
