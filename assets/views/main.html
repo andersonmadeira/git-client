@@ -1,83 +1,20 @@
 <html>
     <head>
         <title>Git client</title>
-        <link rel="stylesheet" href="../css/photon.min.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="../css/main.css">
-        <script src="../js/menu.js" charset="utf-8"></script>
     </head>
     <body>
-        <div class="window">
-            <header class="toolbar toolbar-header">
-                <div class="toolbar-actions">
-                    <h1 class="title">
-                        Git client
-                        <div id="win-frame-menu" class="btn-group pull-right">
-                            <span id="btn-min" class="icon icon-down-open"></span>
-                            <span id="btn-max" class="icon icon-resize-small"></span>   
-                            <span id="btn-close" class="icon icon-cancel"></span> 
-                        </div>
-                    </h1>
-                    <div class="btn-group">
-                        <button id="btn-open" title="Open Repository" class="btn btn-default">
-                            <span class="icon icon-drive"></span>
-                        </button>
-                        <button class="btn btn-default">
-                            <span class="icon icon-left-open"></span>
-                        </button>
-                        <button class="btn btn-default">
-                            <span class="icon icon-right-open"></span>
-                        </button>
-                        <button class="btn btn-default">
-                            <span class="icon icon-home"></span>
-                        </button>
-                        <button class="btn btn-default">
-                            <span class="icon icon-search"></span>
-                        </button>
-                        <button class="btn btn-default active">
-                            <span class="icon icon-cloud"></span>
-                        </button>
-                    </div>
-                </div>
-            </header>
-
-            <div class="window-content">
-            <div class="pane-group">
-                <div class="pane pane-sm sidebar">
-                <nav class="nav-group">
-                    <h5 class="nav-group-title">Branches</h5>
-                    <span class="nav-group-item"> master </span>
-                    <span class="nav-group-item"> develop </span>
-                    <span class="nav-group-item"> feature </span>
-                </nav>
-                <nav id="navRemotes" class="nav-group">
-                    <h5 class="nav-group-title">Remotes</h5>
-                    <span class="nav-group-item"> origin </span>
-                    <span class="nav-group-item"> remote </span>
-                </nav>
-                </div>
-
-                <div class="pane">
-                <table id="table-log" class="table-striped">
-                    <thead>
-                    <tr>
-                        <th>Commit</th>
-                        <th>Message</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                </div>
-
-                <div class="pane pane-sm sidebar">
-                <nav id="navChanges" class="nav-group">
-                    <h5 class="nav-group-title">Changes</h5>
-                    <span class="nav-group-item"> -- </span>
-                </nav>
-                </div>
-            </div>
+        <div id="titlebar">
+            <div class="block" id="title">Git client</div>
+            <div id="titlebar-btns">
+                    <button id="btn-min">-</button>
+                    <button id="btn-max">+</button>   
+                    <button id="btn-close">x</button>
             </div>
         </div>
+           
         <script>
             const electron = require('electron');
             const {ipcRenderer, BrowserWindow} = electron;

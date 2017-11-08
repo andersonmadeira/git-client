@@ -1,7 +1,29 @@
-#win-frame-menu span {
-    padding: 5px 10px 5px;
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Regular.ttf');
 }
 
-.icon-record:before {
-	line-height: inherit;
+body {
+    background-color: #212121;
+    color: #FF7042;
+    font-family: 'Roboto';
+}
+
+.block {
+    background-color: #1A1919;
+}
+
+#titlebar {
+    -webkit-app-region: drag;
+}
+
+#title {
+    display: inline-block;
+    width: 85%;
+}
+
+#titlebar-btns {
+    -webkit-app-region: no-drag;
+    font-size: 15px;
+    display: inline-block;
 }
