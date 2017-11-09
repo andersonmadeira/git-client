@@ -1,29 +1,15 @@
-@font-face {
-    font-family: 'Roboto';
-    src: url('../fonts/Roboto-Regular.ttf');
-}
-
-body {
-    background-color: #212121;
-    color: #FF7042;
-    font-family: 'Roboto';
-}
-
-.block {
-    background-color: #1A1919;
-}
-
 #titlebar {
     -webkit-app-region: drag;
 }
 
-#title {
-    display: inline-block;
-    width: 85%;
-}
-
 #titlebar-btns {
     -webkit-app-region: no-drag;
-    font-size: 15px;
-    display: inline-block;
+}
+
+.navbar-brand,
+nav.navbar,
+.navbar-nav li a {
+    line-height: 30px;
+    height: 30px;
+    padding-top: 0;
 }
