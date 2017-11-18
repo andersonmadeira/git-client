@@ -67,10 +67,16 @@ header.title div.win-btns span.btn-close:hover {
   color: #FF311B
 }
 
+nav.left-sidebar, nav.left-sidebar ul  {
+  position: absolute;
+  left: 0;
+}
+
 section.content {
   background-color: #383838;
-  position: absolute;
-  left: 150px;
+  margin: 0; padding: 0;
+  margin-left: 150px;
   top: 30px;
   padding: 20px;
+  height: 30%;
 }
