@@ -1,171 +1,50 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
-        <title>Git client</title>
-        <link rel="stylesheet" href="../css/photon.min.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="../css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/main.css">
-        <script src="../js/menu.js" charset="utf-8"></script>
+        <title>Git client</title>
     </head>
     <body>
         <div class="window">
-            <header class="toolbar toolbar-header">
-                <div class="toolbar-actions">
-                    <h1 class="title">
-                        Git client
-                        <div id="win-frame-menu" class="btn-group pull-right">
-                            <span id="btn-min" class="icon icon-down-open"></span>
-                            <span id="btn-max" class="icon icon-resize-small"></span>   
-                            <span id="btn-close" class="icon icon-cancel"></span> 
-                        </div>
-                    </h1>
-                    <div class="btn-group">
-                        <button id="btn-open" title="Open Repository" class="btn btn-default">
-                            <span class="icon icon-drive"></span>
-                        </button>
-                        <button class="btn btn-default">
-                            <span class="icon icon-left-open"></span>
-                        </button>
-                        <button class="btn btn-default">
-                            <span class="icon icon-right-open"></span>
-                        </button>
-                        <button class="btn btn-default">
-                            <span class="icon icon-home"></span>
-                        </button>
-                        <button class="btn btn-default">
-                            <span class="icon icon-search"></span>
-                        </button>
-                        <button class="btn btn-default active">
-                            <span class="icon icon-cloud"></span>
-                        </button>
-                    </div>
+            <header class="title">
+                Git client
+                <div class="win-btns">
+                    <span class="btn-min"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                    <span class="btn-max"><i class="fa fa-circle-o" aria-hidden="true"></i></span>
+                    <span class="btn-close"><i class="fa fa-times" aria-hidden="true"></i></span>
                 </div>
             </header>
-
-            <div class="window-content">
-            <div class="pane-group">
-                <div class="pane pane-sm sidebar">
-                <nav class="nav-group">
-                    <h5 class="nav-group-title">Branches</h5>
-                    <span class="nav-group-item"> master </span>
-                    <span class="nav-group-item"> develop </span>
-                    <span class="nav-group-item"> feature </span>
-                </nav>
-                <nav id="navRemotes" class="nav-group">
-                    <h5 class="nav-group-title">Remotes</h5>
-                    <span class="nav-group-item"> origin </span>
-                    <span class="nav-group-item"> remote </span>
-                </nav>
-                </div>
-
-                <div class="pane">
-                <table id="table-log" class="table-striped">
-                    <thead>
-                    <tr>
-                        <th>Commit</th>
-                        <th>Message</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-                </div>
-
-                <div class="pane pane-sm sidebar">
-                <nav id="navChanges" class="nav-group">
-                    <h5 class="nav-group-title">Changes</h5>
-                    <span class="nav-group-item"> -- </span>
-                </nav>
-                </div>
-            </div>
-            </div>
+            <nav class="left-sidebar">
+                <ul>
+                    <li>item 1</li>
+                    <li>item 2</li>
+                    <li>item 3</li>
+                    <li>item 4</li>
+                    <li>item 5</li>
+                </ul>
+            </nav>
+            <section class="content">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id aut quibusdam veritatis eum, commodi accusamus. Inventore adipisci sapiente architecto, quam numquam odit iste, suscipit, dicta necessitatibus quaerat voluptas dolorum in.</p>
+            </section>
         </div>
         <script>
             const electron = require('electron');
             const {ipcRenderer, BrowserWindow} = electron;
 
-            document.querySelector('#btn-min').addEventListener('click', function() {
+            document.querySelector('.btn-min').addEventListener('click', function() {
                 ipcRenderer.send('win:minimize');
             });
 
-            document.querySelector('#btn-max').addEventListener('click', function() {
+            document.querySelector('.btn-max').addEventListener('click', function() {
                 ipcRenderer.send('win:maximize');
             });
 
-            document.querySelector('#btn-close').addEventListener('click', function() {
+            document.querySelector('.btn-close').addEventListener('click', function() {
                 ipcRenderer.send('win:close');
-            });
-
-            document.querySelector('#btn-open').addEventListener('click', function (e) { 
-                ipcRenderer.send('repo:open');
-            });
-
-            ipcRenderer.on('repo:log', function(e, commits) {
-                var lines = document.querySelector('#table-log tbody');
-                lines.innerHTML = '';
-
-                for(i = 1; i <= commits.length; i++) {
-
-                    if ( commits[i].indexOf(' ') == -1 )
-                        continue;
-
-                    var tr = document.createElement('tr');
-                    var tdCommit = document.createElement('td');
-                    tdCommit.innerText = commits[i].slice(0, commits[i].indexOf(' '));
-                    var tdMessage = document.createElement('td');
-                    tdMessage.innerText = commits[i].slice(commits[i].indexOf(' ')+1);
-
-                    tr.appendChild(tdCommit);
-                    tr.appendChild(tdMessage);
-                    lines.appendChild(tr);
-                }
-            });
-
-            ipcRenderer.on('repo:status', function(e, lines) {
-                var navChanges = document.querySelector('#navChanges');
-                navChanges.innerHTML = '<h5 class="nav-group-title">Changes</h5>';
-                
-
-                for (i = 0; i < lines.length; i++) {
-                    var lin = lines[i].trim();
-                    var splitIndex = lin.indexOf(' ');
-                    var opChar;
-
-                    if ( splitIndex == -1 )
-                        continue;
-
-                    var span = document.createElement('span');
-                    span.classList.add('nav-group-item');
-
-
-                    switch ( opChar = lin.slice(0, splitIndex) ) {
-                        case 'M': opChar = '<span class="icon icon-record" style="color:#34c84a"></span>'; break;
-                        case '??': opChar = '<span class="icon icon-record" style="color:#57acf5"></span>'; break;
-                        case 'D': opChar = '<span class="icon icon-record" style="color:#fc605b"></span>'; break;
-                        default: opChar = '?';
-                    }
-
-                    span.innerHTML = opChar + ' ' + lin.slice(splitIndex+1);
-
-                    navChanges.appendChild(span);
-                }
-            });
-
-            ipcRenderer.on('repo:remotes', function(e, lines) {
-                var navRemotes = document.querySelector('#navRemotes');
-                navRemotes.innerHTML = '<h5 class="nav-group-title">Remotes</h5>';
-
-                for (i = 0; i < lines.length; i++) {
-                    var lin = lines[i].trim();
-
-                    if ( lin == "" )
-                        continue;
-
-                    var span = document.createElement('span');
-                    span.classList.add('nav-group-item');
-
-                    span.innerHTML = lin;
-
-                    navRemotes.appendChild(span);
-                }
             });
         </script>
     </body>

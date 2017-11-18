@@ -1,7 +1,76 @@
-#win-frame-menu span {
-    padding: 5px 10px 5px;
+@font-face {
+    font-family: 'open_sansregular';
+    src: url('../fonts/OpenSans-Regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
-.icon-record:before {
-	line-height: inherit;
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html, body { 
+  margin: 0; padding: 0;
+  height: 100%;
+  background-color: #2F2F2F;
+  color: #6D6D6D;
+  font-family: 'open_sansregular';
+}
+
+body {
+  border: 1px solid #252526;
+}
+
+div.window {
+  position: relative;
+  height: 100%;
+  padding: 0; margin: 0;
+}
+
+header.title {
+  position: relative;
+  background-color: #252526;
+  line-height: 30px;
+  padding-left: 10px;
+  user-select: none;
+  -webkit-app-region: drag;
+}
+
+header.title div.win-btns {
+  position: absolute;
+  right: 0;
+  display: inline-block;
+  padding-right: 5px;
+  -webkit-app-region: no-drag;
+}
+
+header.title div.win-btns span {
+  margin: 0 5px;
+}
+
+header.title div.win-btns {
+  font-size: 10px;
+  vertical-align: center;
+}
+
+header.title div.win-btns span.btn-min:hover {
+  color: #80BC40
+}
+
+header.title div.win-btns span.btn-max:hover {
+  color: #1BB4FF
+}
+
+header.title div.win-btns span.btn-close:hover {
+  color: #FF311B
+}
+
+section.content {
+  background-color: #383838;
+  position: absolute;
+  left: 150px;
+  top: 30px;
+  padding: 20px;
 }
